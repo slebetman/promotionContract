@@ -1,8 +1,12 @@
 pragma solidity ^0.4.23;
 
 contract PromotionContract {
-  address owner;
+  // NOTE: These values are in AVAND!
   uint reward = 19;
+  uint agentReward = 38;
+  uint agentIncentive = 19;
+  
+  address owner;
   mapping (address => uint) public users;
   mapping (address => uint) agents;
   mapping (address => uint) allowed_contracts; // mechanism to allow other contracts to call functions
@@ -14,6 +18,11 @@ contract PromotionContract {
   
   modifier onlyPermitted () {
 	if (msg.sender != owner && allowed_contracts[msg.sender] == 0) revert();
+	_;
+  }
+  
+  modifier onlyAgents () {
+	if (agents[msg.sender] == 0) revert();
 	_;
   }
 
@@ -42,6 +51,19 @@ contract PromotionContract {
 	  users[user] = 1;
 	  LogClaim(user, reward * 133 * 1000);
     }
+	else {
+		revert();
+	}
+  }
+  
+  function claimFromAgent (address user) public onlyAgents {
+	if (!isRegistered(user)) {
+		user.transfer(agentReward * 133 * 1000);
+		msg.sender.transfer(agentIncentive * 133 * 1000);
+	}
+	else {
+		revert();
+	}
   }
   
   function allow (address other) public onlyOwner {
@@ -63,4 +85,13 @@ contract PromotionContract {
   function setReward (uint value) public onlyOwner {
 	reward = value;
   }
+  
+  function setRewardFromAgent (uint value) public onlyOwner {
+	agentReward = value;
+  }
+  
+  function setIncentiveToAgent (uint value) public onlyOwner {
+	agentIncentive = value;
+  }
 }
+
