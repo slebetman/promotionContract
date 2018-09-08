@@ -49,7 +49,7 @@ contract PromotionContract {
     if (!isRegistered(user)) {
       user.transfer(reward * 133 * 1000);
 	  users[user] = 1;
-	  LogClaim(user, reward * 133 * 1000);
+	  emit LogClaim(user, reward * 133 * 1000);
     }
 	else {
 		revert();
