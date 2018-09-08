@@ -1,14 +1,17 @@
-var PrivateKeyProvider = require("truffle-privatekey-provider");
-var privateKey = "c282e1c716d96b857edaecb121f29c765efadc816d6a63c65fbcd4ff0ae33ed0";
+// var PrivateKeyProvider = require("truffle-privatekey-provider");
+
+//var privateKey = "af450b60613cf75983ba59398cc29c1b550e0115a4bdf5e14286d449aff259f9"; // OWNER
+//var privateKey = '9405ebf7b48e6d18d57abee9ef4455771c59113f476a376a214bc5d06e662140'; // AGENT
+
+// var privateKey = '0x3f723582fcb20c0217836d177a8e3606b8cae510302dbc0820b3ccff070a2da5';
+
+var Provider = require('truffle-hdwallet-provider');
+var recovery = 'bullet treat toss enjoy need flash trust local tribe rug olive limb';
 
 module.exports = {
   networks: {
     development: {
-      provider: new PrivateKeyProvider(privateKey, "HTTP://127.0.0.1:7545"),
-      network_id: '*'
-    },
-    mohammad: {
-      provider: new PrivateKeyProvider(privateKey, "HTTP://192.168.1.7:7545"),
+      provider: new Provider(recovery, "HTTP://127.0.0.1:8545"),
       network_id: '*'
     }
   }
