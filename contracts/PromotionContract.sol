@@ -7,4 +7,11 @@ contract PromotionContract {
   constructor () public {
     owner = msg.sender;
   }
+
+  function isRegistered (address user) public returns (bool) {
+    if (users[user] != 0) {
+      return true;
+    }
+    return false;
+  }
 }
