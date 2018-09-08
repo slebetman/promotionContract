@@ -21,6 +21,8 @@ contract PromotionContract {
   }
 
   function claimPromotion (address user) public onlyOwner {
-    user.transfer(19 * 133 * 1000);
+    if (!isRegistered(user)) {
+      user.transfer(19 * 133 * 1000);
+    }
   }
 }
