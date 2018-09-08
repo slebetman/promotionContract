@@ -2,10 +2,11 @@ pragma solidity ^0.4.23;
 
 contract PromotionContract {
   address owner;
+  uint reward;
   mapping (address => uint) public users;
 
   modifier onlyOwner () {
-    if (msg.sender != owner) throw;
+    if (msg.sender != owner) revert();
     _;
   }
 
@@ -14,13 +15,14 @@ contract PromotionContract {
   }
 
   event LogBargTopUp (address from, uint value);
+  event LogClaim (address user, uint value);
 
   // ALLOW PEOPLE TO TOP-UP this smart contract.
-  function () public {
+  function () public payable {
     emit LogBargTopUp(msg.sender, msg.value);
   }
 
-  function isRegistered (address user) public returns (bool) {
+  function isRegistered (address user) public view returns (bool) {
     if (users[user] != 0) {
       return true;
     }
@@ -29,7 +31,8 @@ contract PromotionContract {
 
   function claimPromotion (address user) public onlyOwner {
     if (!isRegistered(user)) {
-      user.transfer(19 * 133 * 1000);
+      user.transfer(reward * 133 * 1000);
+	  LogClaim(user, reward * 133 * 1000);
     }
   }
 }
