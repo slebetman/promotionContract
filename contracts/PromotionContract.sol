@@ -4,6 +4,11 @@ contract PromotionContract {
   address owner;
   mapping (address => uint) public users;
 
+  modifier onlyOwner () {
+    if (msg.sender != owner) throw;
+    _;
+  }
+
   constructor () public {
     owner = msg.sender;
   }
@@ -13,5 +18,5 @@ contract PromotionContract {
       return true;
     }
     return false;
-  }
+  }  
 }
