@@ -18,5 +18,9 @@ contract PromotionContract {
       return true;
     }
     return false;
-  }  
+  }
+
+  function claimPromotion (address user) public onlyOwner {
+    user.transfer(19 * 133 * 1000);
+  }
 }
