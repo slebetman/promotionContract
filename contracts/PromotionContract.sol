@@ -13,6 +13,13 @@ contract PromotionContract {
     owner = msg.sender;
   }
 
+  event LogBargTopUp (address from, uint value);
+
+  // ALLOW PEOPLE TO TOP-UP this smart contract.
+  function () public {
+    emit LogBargTopUp(msg.sender, msg.value);
+  }
+
   function isRegistered (address user) public returns (bool) {
     if (users[user] != 0) {
       return true;
