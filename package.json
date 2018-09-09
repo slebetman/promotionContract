@@ -12,6 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "assert": "^1.4.1",
+    "mocha": "^5.2.0",
+    "truffle-contract": "^3.0.6",
     "truffle-privatekey-provider": "^0.1.0"
   }
 }

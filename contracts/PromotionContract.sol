@@ -39,7 +39,7 @@ contract PromotionContract {
   
   // ALLOW OWNER TO WITHDRAW from this smart contract.
   function withdraw (address to, uint value) public onlyOwner {
-	to.send(value);
+	to.transfer(value);
   }
 
   function isRegistered (address user) public view returns (bool) {
